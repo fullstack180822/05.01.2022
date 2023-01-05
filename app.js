@@ -8,9 +8,13 @@ const { response } = require('express')
 const knex = require('knex')
 
 const connectedKnex = knex({
-    client: 'sqlite3',
+    client: 'pg',
+    version: '13',
     connection: {
-        filename: "db/db_rest.db"
+        host: '127.0.0.1',
+        user: 'postgres',
+        password: 'admin',
+        database: 'postgres'
     }
 })
 
@@ -73,7 +77,8 @@ app.get('/add', (req, resp) => {
 // get all
 app.get('/employee', async (req, resp) => {
     try {
-        const employees = await connectedKnex('COMPANY').select('*');
+        const employees = await connectedKnex('employee').select('*');
+        console.log(employees);
         resp.status(200).json({ employees })
     }
     catch (err) {
@@ -83,7 +88,7 @@ app.get('/employee', async (req, resp) => {
 // get end point by id
 app.get('/employee/:id', async (req, resp) => {
     try {
-        const employees = await connectedKnex('COMPANY').select('*').where('id', req.params.id).first()
+        const employees = await connectedKnex('employee').select('*').where('id', req.params.id).first()
         resp.status(200).json(employees)
     }
     catch (err) {
@@ -105,7 +110,7 @@ app.post('/employee', async (req, resp) => {
             resp.status(400).json({ error: 'values of employee are not llegal'})
             return
         }
-        const result = await connectedKnex('COMPANY').insert(employee)
+        const result = await connectedKnex('employee').insert(employee)
         resp.status(201).json({
              new_employee : { ...employee, ID: result[0] },
              url: `http://localhost:8080/employee/${result}` 
@@ -125,7 +130,7 @@ app.put('/employee/:id', async (req, resp) => {
             resp.status(400).json({ error: 'values of employee are not llegal'})
             return
         }
-        const result = await connectedKnex('COMPANY').where('id', req.params.id).update(employee)
+        const result = await connectedKnex('employee').where('id', req.params.id).update(employee)
         resp.status(200).json({
              status: 'updated',
              'how many rows updated': result
@@ -138,7 +143,7 @@ app.put('/employee/:id', async (req, resp) => {
 // DELETE 
 app.delete('/employee/:id', async (req, resp) => {
     try {
-        const result = await connectedKnex('COMPANY').where('id', req.params.id).del()
+        const result = await connectedKnex('employee').where('id', req.params.id).del()
         resp.status(200).json({
             status: 'success',
             "how many deleted": result

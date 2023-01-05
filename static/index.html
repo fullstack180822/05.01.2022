@@ -54,11 +54,11 @@
                     console.log(json.employees);
                     var tb = ""
                     json.employees.forEach(e => {
-                        tb += `<tr><td>${e.ID}</td>
-                <td>${e.NAME}</td>
-                <td>${e.AGE}</td>
-                <td>${e.ADDRESS}</td>
-                <td>${e.SALARY}</td></tr>`
+                        tb += `<tr><td>${e.id}</td>
+                <td>${e.name}</td>
+                <td>${e.age}</td>
+                <td>${e.address}</td>
+                <td>${e.salary}</td></tr>`
                     });
                     document.getElementById('data').innerHTML = tb
 
