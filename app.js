@@ -6,15 +6,16 @@ const url = require('url')
 const cors = require('cors')
 const { response } = require('express')
 const knex = require('knex')
+const config = require('config')
 
 const connectedKnex = knex({
     client: 'pg',
-    version: '13',
+    version: config.db.version,
     connection: {
-        host: '127.0.0.1',
-        user: 'postgres',
-        password: 'admin',
-        database: 'postgres'
+        host: config.db.host,
+        user: config.db.user,
+        password: config.db.password,
+        database: config.db.database
     }
 })
 
