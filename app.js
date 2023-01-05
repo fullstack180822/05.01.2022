@@ -97,8 +97,8 @@ app.get('/employee/:id', async (req, resp) => {
 })
 
 function is_valid_employee(obj) {
-    return obj.hasOwnProperty('NAME') && obj.hasOwnProperty('AGE') && 
-        obj.hasOwnProperty('ADDRESS') && obj.hasOwnProperty('SALARY') 
+    return obj.hasOwnProperty('name') && obj.hasOwnProperty('age') && 
+        obj.hasOwnProperty('address') && obj.hasOwnProperty('salary') 
 }
 
 // ADD
@@ -117,6 +117,7 @@ app.post('/employee', async (req, resp) => {
             })
     }
     catch (err) {
+        console.log(err);
         resp.status(500).json({ "error": err.message })
     }
 })

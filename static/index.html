@@ -69,10 +69,10 @@
         async function fire_add() {
             // demo code
             const new_employee = {
-                NAME: document.getElementById('txt_name').value,
-                AGE: parseFloat(document.getElementById('txt_age').value),
-                ADDRESS: document.getElementById('txt_address').value,
-                SALARY: parseFloat(document.getElementById('txt_salary').value)
+                name: document.getElementById('txt_name').value,
+                age: parseFloat(document.getElementById('txt_age').value),
+                address: document.getElementById('txt_address').value,
+                salary: parseFloat(document.getElementById('txt_salary').value)
             }
             const result = await fetch('/employee', {
                 method: 'POST',
@@ -83,7 +83,7 @@
                 // take from inputs 
                 body: JSON.stringify(new_employee)
             })
-            run_me()
+           // run_me()
 
         }
         function fire_update() {
